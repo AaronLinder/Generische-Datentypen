@@ -17,8 +17,15 @@ namespace ConsoleApp1
         {
             head = null;
         }
-       
 
+        public void insert_front(int newElement)
+        {
+            Node<T> newNode = new Node<T>();
+            newNode.data = newElement;
+            newNode.next = head;
+            head = newNode;
+            count++;
+        }
         public void insert_inthemiddle(int newElement, int position)
         {
             Node<T> newNode = new Node<T>();
@@ -80,23 +87,43 @@ namespace ConsoleApp1
             count++;
         }
 
-        public void delete_at(int position)
+        public Node<T> get_node(int data)
+        {
+                Node<T> temp = new Node<T>();
+                temp = head;
+                while (head != null)
+                {
+                    if (temp.data != data)
+                    {
+                        temp = temp.next;
+                    }
+                    else
+                    {
+                    return temp;
+                }
+                }   
+                return null;
+        }
+
+        public bool delete_at(int position)
         {
             if (position < 1)
             {
-                Console.Write("\nposition should be >= 1.");
+                return false;
             }
             else if (position == 1 && head != null)
             {
                 Node<T> nodeToDelete = head;
                 head = head.next;
                 nodeToDelete = null;
+                count--;
+                return true;
             }
             else
             {
                 Node<T> temp = new Node<T>();
                 temp = head;
-                for (int i = 1; i < position - 1; i++)
+                for (int i = 1; i < position ; i++)
                 {
                     if (temp != null)
                     {
@@ -108,13 +135,14 @@ namespace ConsoleApp1
                     Node<T> nodeToDelete = temp.next;
                     temp.next = temp.next.next;
                     nodeToDelete = null;
+                    count--;
+                    return true;
                 }
                 else
                 {
-                    Console.Write("\nThe node is already null.");
+                    return false;
                 }
             }
-            count--;
         }
 
         public void delete_last()
@@ -162,46 +190,6 @@ namespace ConsoleApp1
             else
             {
                 Console.WriteLine("The list is empty.");
-            }
-        }
-        void insertionSort(Node<T> headref)
-        {
-            sorted = null;
-            Node<T> current = headref;
-
-            while (current != null)
-            {
-
-                Node<T> next = current.next;
-
-                sortedInsert(current);
-
-                // Update current
-                current = next;
-            }
-            head = sorted;
-        }
-
-        void sortedInsert(Node<T> newnode)
-        {
-            /* Special case for the head end */
-            if (sorted == null || sorted.data >= newnode.data)
-            {
-                newnode.next = sorted;
-                sorted = newnode;
-            }
-            else
-            {
-                Node<T> current = sorted;
-
-                /* Locate the node before the point of insertion */
-                while (current.next != null &&
-                        current.next.data < newnode.data)
-                {
-                    current = current.next;
-                }
-                newnode.next = current.next;
-                current.next = newnode;
             }
         }
     }
