@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    public class Node
+    public class Node<T>
     {
         public int data;
-        public Node next;
+        public Node<T> next;
     }
 }
