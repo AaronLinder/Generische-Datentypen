@@ -10,19 +10,34 @@ namespace TestProject1
         }
 
         [Test]
-        public void LinkedList_test()
+        public void LinkedList_deleteAtTest()
         {
             var myList = new SingleLinkedList<int>();
             myList.insert_AtTheEnd(1);
             myList.insert_AtTheEnd(2);
             myList.insert_AtTheEnd(3);
+            myList.insert_AtTheEnd(4);
 
+            Assert.AreEqual(4, myList.size());
 
-
+            myList.delete_at(1);
             Assert.AreEqual(3, myList.size());
-
-            myList.delete_last();
-            Assert.AreEqual(2, myList.size());
         }
+
+        [Test]
+        public void LinkedList_getNode_insertafter()
+        {
+            var myList = new SingleLinkedList<int>();
+            myList.insert_AtTheEnd(1);
+            myList.insert_AtTheEnd(2);
+            myList.insert_AtTheEnd(3);
+            myList.insert_AtTheEnd(5);
+            myList.insert_inthemiddle(4, 4);
+
+            Assert.That(4, Is.EqualTo(myList.get_node(4).data));
+            Assert.AreEqual(5, myList.size());
+        }
+
+
     }
 }
