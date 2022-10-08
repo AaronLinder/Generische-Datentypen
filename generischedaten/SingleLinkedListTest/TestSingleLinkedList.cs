@@ -38,6 +38,19 @@ namespace TestProject1
             Assert.AreEqual(5, myList.size());
         }
 
+        [Test]
+        public void getNode_NodeExists_returnsNode()
+        {
+            var myList = new SingleLinkedList<int>();
+            myList.insert_AtTheEnd(1);
+            myList.insert_AtTheEnd(2);
+            myList.insert_AtTheEnd(3);
+            myList.insert_AtTheEnd(5);
+            var node = myList.get_node(3);
+
+            Assert.That(3, Is.EqualTo(node.data));
+        }
+
 
     }
 }
