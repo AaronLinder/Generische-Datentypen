@@ -4,11 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace LinkedList
+
 {
-    public class Node<T>
+    public class Node
     {
-        public int data;
-        public Node<T> next;
+        public object data;
+        public Node next;
+
+        public Node(object data)
+        {
+            this.data = data;
+        }
+        public Node() { }
     }
 }

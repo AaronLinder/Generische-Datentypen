@@ -1,68 +1,68 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace ConsoleApp1
+namespace LinkedList
 {
-    public class SingleLinkedList<T>
+    public class SingleLinkedList
     {
-        Node<T> head;
-        public Node<T> sorted;
+        Node head;
         int count;
         public SingleLinkedList()
         {
             head = null;
         }
-       
 
-        public void insert_inthemiddle(int newElement, int position)
+        public override string ToString()
         {
-            Node<T> newNode = new Node<T>();
+
+            Node current = head;
+            String result = "";
+            while (current != null)
+            {
+                result += current.data + "\n";
+                current = current.next;
+            }
+
+            return result;
+        }
+        public void insert_front(object newElement)
+        {
+            Node newNode = new Node();
             newNode.data = newElement;
-            newNode.next = null;
-
-            if (position < 1)
+            newNode.next = head;
+            head = newNode;
+            count++;
+        }
+        public void InsertAfter(Node previousNode, object newData)
+        {
+            Node currentNode = head;
+            while (currentNode != null)
             {
-                Console.Write("\nposition should be >= 1.");
-            }
-            else if (position == 1)
-            {
-                newNode.next = head;
-                head = newNode;
-            }
-            else
-            {
-
-                Node<T> temp = new Node<T>();
-                temp = head;
-                for (int i = 1; i < position - 1; i++)
+                if (currentNode == previousNode)
                 {
-                    if (temp != null)
-                    {
-                        temp = temp.next;
-                    }
+                    Node previousNextNode = currentNode.next;
+                    currentNode.next = new Node(newData);
+                    currentNode.next.next = previousNextNode;
+                    count++;
                 }
-
-                if (temp != null)
+                if (currentNode.next == null)
                 {
-                    newNode.next = temp.next;
-                    temp.next = newNode;
+                    return;
                 }
-                else
-                {
-                    Console.Write("\nThe previous node is null.");
-                }
+                currentNode = currentNode.next;
             }
             count++;
-        } 
+        }
 
-        public void insert_AtTheEnd(int newElement)
+        public void insert_AtTheEnd(object newElement)
         {
-            Node<T> newNode = new Node<T>();
+            Node newNode = new Node();
             newNode.data = newElement;
             newNode.next = null;
             if (head == null)
@@ -71,7 +71,7 @@ namespace ConsoleApp1
             }
             else
             {
-                Node<T> temp = new Node<T>();
+                Node temp = new Node();
                 temp = head;
                 while (temp.next != null)
                     temp = temp.next;
@@ -80,41 +80,60 @@ namespace ConsoleApp1
             count++;
         }
 
-        public void delete_at(int position)
+        public Node? GetNode(object data)
         {
-            if (position < 1)
+            Node currentNode = head;
+            while (currentNode != null)
             {
-                Console.Write("\nposition should be >= 1.");
-            }
-            else if (position == 1 && head != null)
-            {
-                Node<T> nodeToDelete = head;
-                head = head.next;
-                nodeToDelete = null;
-            }
-            else
-            {
-                Node<T> temp = new Node<T>();
-                temp = head;
-                for (int i = 1; i < position - 1; i++)
+                if (currentNode.data.Equals(data))
                 {
-                    if (temp != null)
-                    {
-                        temp = temp.next;
-                    }
+                    return currentNode;
                 }
-                if (temp != null && temp.next != null)
+
+                if (currentNode.next == null)
                 {
-                    Node<T> nodeToDelete = temp.next;
-                    temp.next = temp.next.next;
-                    nodeToDelete = null;
+                    return null;
                 }
-                else
-                {
-                    Console.Write("\nThe node is already null.");
-                }
+                currentNode = currentNode.next;
             }
+            return null;
+        }
+
+        public void DeleteFirst()
+        {
             count--;
+            head = head.next;
+        }
+
+        public bool DeleteNode(Node node)
+        {
+            Node currentNode = head;
+            Node previousNode = head;
+            while (currentNode != null)
+            {
+                if (currentNode == node)
+                {
+                    if (currentNode == head)
+                    {
+                        DeleteFirst();
+                    }
+                    else
+                    {
+                        previousNode.next = currentNode.next;
+                    }
+                    count--;
+                    return true;
+                }
+
+                if (currentNode.next == null)
+                {
+                    return false;
+                }
+                previousNode = currentNode;
+                currentNode = currentNode.next;
+            }
+
+            return false;
         }
 
         public void delete_last()
@@ -127,11 +146,11 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    Node<T> temp = new Node<T>();
+                    Node temp = new Node();
                     temp = this.head;
                     while (temp.next.next != null)
                         temp = temp.next;
-                    Node<T> lastNode = temp.next;
+                    Node lastNode = temp.next;
                     temp.next = null;
                     lastNode = null;
                 }
@@ -147,7 +166,7 @@ namespace ConsoleApp1
 
         public void PrintList()
         {
-            Node<T> temp = new Node<T>();
+            Node temp = new Node();
             temp = this.head;
             if (temp != null)
             {
@@ -164,44 +183,24 @@ namespace ConsoleApp1
                 Console.WriteLine("The list is empty.");
             }
         }
-        void insertionSort(Node<T> headref)
+
+        public void SwitchNodes(Node firstNode, Node secondNode)
         {
-            sorted = null;
-            Node<T> current = headref;
-
-            while (current != null)
+            var List = head;
+            while (List != null)
             {
-
-                Node<T> next = current.next;
-
-                sortedInsert(current);
-
-                // Update current
-                current = next;
-            }
-            head = sorted;
-        }
-
-        void sortedInsert(Node<T> newnode)
-        {
-            /* Special case for the head end */
-            if (sorted == null || sorted.data >= newnode.data)
-            {
-                newnode.next = sorted;
-                sorted = newnode;
-            }
-            else
-            {
-                Node<T> current = sorted;
-
-                /* Locate the node before the point of insertion */
-                while (current.next != null &&
-                        current.next.data < newnode.data)
+                if (firstNode.data == List.data)
                 {
-                    current = current.next;
+                    List.data = secondNode.data;
                 }
-                newnode.next = current.next;
-                current.next = newnode;
+                else if (secondNode.data == List.data)
+                {
+                    List.data = firstNode.data;
+                }
+                else
+                {
+                    List = List.next;
+                }
             }
         }
     }
