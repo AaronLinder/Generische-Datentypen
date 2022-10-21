@@ -9,10 +9,10 @@ namespace LinkedList
 {
     public class Node
     {
-        public object data;
+        public int data;
         public Node next;
 
-        public Node(object data)
+        public Node(int data)
         {
             this.data = data;
         }

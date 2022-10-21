@@ -31,7 +31,7 @@ namespace LinkedList
 
             return result;
         }
-        public void insert_front(object newElement)
+        public void insert_front(int newElement)
         {
             Node newNode = new Node();
             newNode.data = newElement;
@@ -39,7 +39,7 @@ namespace LinkedList
             head = newNode;
             count++;
         }
-        public void InsertAfter(Node previousNode, object newData)
+        public void InsertAfter(Node previousNode, int newData)
         {
             Node currentNode = head;
             while (currentNode != null)
@@ -60,7 +60,7 @@ namespace LinkedList
             count++;
         }
 
-        public void insert_AtTheEnd(object newElement)
+        public void insert_AtTheEnd(int newElement)
         {
             Node newNode = new Node();
             newNode.data = newElement;
@@ -80,7 +80,7 @@ namespace LinkedList
             count++;
         }
 
-        public Node? GetNode(object data)
+        public Node? GetNode(int data)
         {
             Node currentNode = head;
             while (currentNode != null)
@@ -197,10 +197,7 @@ namespace LinkedList
                 {
                     List.data = firstNode.data;
                 }
-                else
-                {
-                    List = List.next;
-                }
+                List = List.next;
             }
         }
     }
