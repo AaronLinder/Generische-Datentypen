@@ -220,6 +220,26 @@ namespace LinkedList
                 temp = temp.next;
             }
         }
+
+        public void InsertsortReverse()
+        {
+            var temp = head;
+
+            while (temp != null)
+            {
+                for (var current = head; current.next != null; current = current.next)
+                {
+                    if (current.data == temp.data && current.next.data == temp.next.data)
+                        break;
+                    if (current.data >= temp.data)
+                        continue;
+                    var speicher = current.data;
+                    current.data = temp.data;
+                    temp.data = speicher;
+                }
+                temp = temp.next;
+            }
+        }
     }
 }
 
