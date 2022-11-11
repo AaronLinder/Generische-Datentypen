@@ -186,18 +186,38 @@ namespace LinkedList
 
         public void SwitchNodes(Node firstNode, Node secondNode)
         {
-            var List = head;
-            while (List != null)
+            var temp = head;
+            while (temp != null)
             {
-                if (firstNode.data == List.data)
+                if (firstNode.data == temp.data)
                 {
-                    List.data = secondNode.data;
+                    temp.data = secondNode.data;
                 }
-                else if (secondNode.data == List.data)
+                else if (secondNode.data == temp.data)
                 {
-                    List.data = firstNode.data;
+                    temp.data = firstNode.data;
                 }
-                List = List.next;
+                temp = temp.next;
+            }
+        }
+
+        public void Insertsort()
+        {
+            var temp = head.next;
+
+            while(temp != null)
+            {
+                for (var current = head; current.next != null; current = current.next)
+                {
+                    if (current.data == temp.data && current.next.data == temp.next.data)
+                        break;
+                    if (current.data <= temp.data)
+                        continue;
+                    var speicher = current.data;
+                    current.data = temp.data;
+                    temp.data = speicher;
+                }
+                temp = temp.next;
             }
         }
     }
