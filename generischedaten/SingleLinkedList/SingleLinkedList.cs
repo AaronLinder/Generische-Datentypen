@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace LinkedList
 {
-    public class SingleLinkedList
+    public class SingleLinkedList : IMyList
     {
         Node head;
         int count;
+        SortStrategy sortstrategy;
         public SingleLinkedList()
         {
             head = null;
@@ -20,16 +22,18 @@ namespace LinkedList
 
         public override string ToString()
         {
+            string retval = "";
+            if (head == null)
+                return "No elements in List";
 
-            Node current = head;
-            String result = "";
-            while (current != null)
+            var node = head;
+            while (node != null)
             {
-                result += current.data + "\n";
-                current = current.next;
+                retval += "| " + node.data + " ";
+                node = node.next;
             }
-
-            return result;
+            retval += "|";
+            return retval;
         }
         public void insert_front(int newElement)
         {
@@ -99,6 +103,18 @@ namespace LinkedList
             return null;
         }
 
+        public Node? GetLast()
+        {
+            for(Node cur = head; cur.next != null; cur = cur.next)
+            {
+                if(cur.next == null)
+                {
+                    return cur;
+                }
+            }
+            return null;
+        }
+
         public void DeleteFirst()
         {
             count--;
@@ -138,24 +154,16 @@ namespace LinkedList
 
         public void delete_last()
         {
-            if (this.head != null)
+            var cur = head;
+            while (cur.next != null)
             {
-                if (this.head.next == null)
+                if (cur.next.next == null)
                 {
-                    this.head = null;
-                }
-                else
-                {
-                    Node temp = new Node();
-                    temp = this.head;
-                    while (temp.next.next != null)
-                        temp = temp.next;
-                    Node lastNode = temp.next;
-                    temp.next = null;
-                    lastNode = null;
-                }
+                    cur.next = null;
+                    break;
+                };
+                cur = cur.next;
             }
-            count--;
         }
 
 
@@ -186,21 +194,12 @@ namespace LinkedList
 
         public void SwitchNodes(Node firstNode, Node secondNode)
         {
-            var temp = head;
-            while (temp != null)
+            if(GetNode(firstNode.data) != null && GetNode(secondNode.data) != null)
             {
-                if (firstNode.data == temp.data)
-                {
-                    temp.data = secondNode.data;
-                }
-                else if (secondNode.data == temp.data)
-                {
-                    temp.data = firstNode.data;
-                }
-                temp = temp.next;
+                (firstNode.data, secondNode.data) = (secondNode.data, firstNode.data);
             }
+ 
         }
-
         public void Insertsort()
         {
             var temp = head.next;
@@ -239,6 +238,21 @@ namespace LinkedList
                 }
                 temp = temp.next;
             }
+        }
+
+        public void SetSortStrategy(SortStrategy sortStrategy)
+        {
+            sortstrategy = sortStrategy;
+        }
+
+        public Node GetFirst()
+        {
+            return head;
+        }
+
+        public void Sort()
+        {
+            sortstrategy.Sort(this);
         }
     }
 }
