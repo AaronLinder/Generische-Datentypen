@@ -18,86 +18,12 @@ namespace TestProject1
             myList.insert_AtTheEnd(3);
             myList.insert_AtTheEnd(4);
 
-            Assert.That(myList.ToString, Is.EqualTo("1\n2\n3\n4\n"));
+            Node node1 = myList.GetNode(2);
+            Node node2 = myList.GetNode(3);
 
-            myList.SwitchNodes(new Node(2), new Node(3));
+            myList.SwitchNodes(node1, node2);
 
-            Assert.That(myList.ToString, Is.EqualTo("1\n3\n2\n4\n"));
-        }
-
-        [Test]
-        public void Insertsort_UnorderdNummbers_CorrectOrderOfNumbers()
-        {
-            var myList = new SingleLinkedList();
-            myList.insert_AtTheEnd(1);
-            myList.insert_AtTheEnd(6);
-            myList.insert_AtTheEnd(2);
-            myList.insert_AtTheEnd(4);
-            myList.insert_AtTheEnd(3);
-            myList.insert_AtTheEnd(5);
-
-            Assert.That(myList.ToString, Is.EqualTo("1\n6\n2\n4\n3\n5\n"));
-
-            myList.Insertsort();
-
-            Assert.That(myList.ToString, Is.EqualTo("1\n2\n3\n4\n5\n6\n"));
-        }
-
-        [Test]
-
-        public void Insertsort_SomeNummberDouble_CorrectOrderOfNumbersAndNoError()
-        {
-            var myList = new SingleLinkedList();
-            myList.insert_AtTheEnd(1);
-            myList.insert_AtTheEnd(6);
-            myList.insert_AtTheEnd(2);
-            myList.insert_AtTheEnd(4);
-            myList.insert_AtTheEnd(3);
-            myList.insert_AtTheEnd(4);
-            myList.insert_AtTheEnd(5);
-
-            Assert.That(myList.ToString, Is.EqualTo("1\n6\n2\n4\n3\n4\n5\n"));
-
-            myList.Insertsort();
-
-            Assert.That(myList.ToString, Is.EqualTo("1\n2\n3\n4\n4\n5\n6\n"));
-        }
-
-        [Test]
-        public void InsertsortReverse_UnorderdNummbers_CorrectOrderOfNumbers()
-        {
-            var myList = new SingleLinkedList();
-            myList.insert_AtTheEnd(1);
-            myList.insert_AtTheEnd(6);
-            myList.insert_AtTheEnd(2);
-            myList.insert_AtTheEnd(4);
-            myList.insert_AtTheEnd(3);
-            myList.insert_AtTheEnd(5);
-
-            Assert.That(myList.ToString, Is.EqualTo("1\n6\n2\n4\n3\n5\n"));
-
-            myList.InsertsortReverse();
-
-            Assert.That(myList.ToString, Is.EqualTo("6\n5\n4\n3\n2\n1\n"));
-        }
-
-        [Test]
-        public void InsertsortReverse_SomeNummberDouble_CorrectOrderOfNumbersAndNoError()
-        {
-            var myList = new SingleLinkedList();
-            myList.insert_AtTheEnd(1);
-            myList.insert_AtTheEnd(6);
-            myList.insert_AtTheEnd(2);
-            myList.insert_AtTheEnd(6);
-            myList.insert_AtTheEnd(3);
-            myList.insert_AtTheEnd(4);
-            myList.insert_AtTheEnd(5);
-
-            Assert.That(myList.ToString, Is.EqualTo("1\n6\n2\n6\n3\n4\n5\n"));
-
-            myList.InsertsortReverse();
-
-            Assert.That(myList.ToString, Is.EqualTo("6\n6\n5\n4\n3\n2\n1\n"));
+            Assert.AreEqual(myList.ToString(), "| 1 | 3 | 2 | 4 |");
         }
     }
 }
