@@ -254,6 +254,11 @@ namespace LinkedList
         {
             sortstrategy.Sort(this);
         }
+
+        public void SortDesc()
+        {
+            sortstrategy.SortDesc(this);
+        }
     }
 }
 

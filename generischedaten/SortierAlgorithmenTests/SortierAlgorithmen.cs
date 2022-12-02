@@ -103,5 +103,43 @@ namespace SortierAlgorithmenTests
 
             Assert.That(myList.ToString, Is.EqualTo("| 1 | 2 | 3 | 4 | 5 | 6 |"));
         }
+
+        [Test]
+        public void RverseBubbleSort_UnorderdNummbers_CorrectOrderOfNumbers()
+        {
+            var myList = new SingleLinkedList();
+            myList.SetSortStrategy(new BubbleSort());
+            myList.insert_AtTheEnd(1);
+            myList.insert_AtTheEnd(6);
+            myList.insert_AtTheEnd(2);
+            myList.insert_AtTheEnd(4);
+            myList.insert_AtTheEnd(3);
+            myList.insert_AtTheEnd(5);
+
+            Assert.That(myList.ToString, Is.EqualTo("| 1 | 6 | 2 | 4 | 3 | 5 |"));
+
+            myList.SortDesc();
+
+            Assert.That(myList.ToString, Is.EqualTo("| 6 | 5 | 4 | 3 | 2 | 1 |"));
+        }
+
+        [Test]
+        public void RverseBubbleSort_SomeNummberDouble_CorrectOrderOfNumbers()
+        {
+            var myList = new SingleLinkedList();
+            myList.SetSortStrategy(new BubbleSort());
+            myList.insert_AtTheEnd(1);
+            myList.insert_AtTheEnd(6);
+            myList.insert_AtTheEnd(3);
+            myList.insert_AtTheEnd(4);
+            myList.insert_AtTheEnd(3);
+            myList.insert_AtTheEnd(5);
+
+            Assert.That(myList.ToString, Is.EqualTo("| 1 | 6 | 3 | 4 | 3 | 5 |"));
+
+            myList.SortDesc();
+
+            Assert.That(myList.ToString, Is.EqualTo("| 6 | 5 | 4 | 3 | 3 | 1 |"));
+        }
     }
 }

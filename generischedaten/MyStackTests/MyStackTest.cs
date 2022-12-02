@@ -24,8 +24,8 @@ namespace MyStackTests
             stack.Push(1);
             stack.Push(2);
             stack.Push(3);
-            var last = stack.Pop();
-            Assert.AreEqual(last.data, 3);
+            Assert.AreEqual(stack.ToString(), "| 1 | 2 | 3 |");
+            stack.Pop();
             Assert.AreEqual(stack.ToString(), "| 1 | 2 |");
         }
     }
