@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Queue
 {
-    public class Queues
+    public class Queues : ISubject
     {
         private SingleLinkedList internalList = new SingleLinkedList();
+        private List<IObserver> _observers = new List<IObserver>();
 
         public Node Enqueue(int argValue)
         {
@@ -28,6 +29,29 @@ namespace Queue
         public override string ToString()
         {
             return internalList.ToString();
+        }
+
+        public void Attach(IObserver observer)
+        {
+            Console.WriteLine("Subject: Attached an observer.");
+            this._observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            this._observers.Remove(observer);
+            Console.WriteLine("Subject: Detached an observer.");
+        }
+
+        // Trigger an update in each subscriber.
+        public void Notify()
+        {
+            Console.WriteLine("Subject: Notifying observers...");
+
+            foreach (var observer in _observers)
+            {
+                observer.Update(this);
+            }
         }
     }
 }
