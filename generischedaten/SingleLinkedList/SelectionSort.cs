@@ -27,5 +27,10 @@ namespace LinkedList
             }
 
         }
+
+        public override void SortDesc(IMyList list)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

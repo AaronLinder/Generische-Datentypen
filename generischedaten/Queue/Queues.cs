@@ -16,6 +16,7 @@ namespace Queue
         {
             var nodeToAdd = new Node(argValue);
             internalList.insert_AtTheEnd(argValue);
+            Notify();
             return nodeToAdd;
         }
 
@@ -23,6 +24,7 @@ namespace Queue
         {
             var retval = internalList.GetFirst();
             internalList.DeleteFirst();
+            Notify();
             return retval;
         }
 
@@ -36,14 +38,12 @@ namespace Queue
             Console.WriteLine("Subject: Attached an observer.");
             this._observers.Add(observer);
         }
-
         public void Detach(IObserver observer)
         {
             this._observers.Remove(observer);
             Console.WriteLine("Subject: Detached an observer.");
         }
 
-        // Trigger an update in each subscriber.
         public void Notify()
         {
             Console.WriteLine("Subject: Notifying observers...");
