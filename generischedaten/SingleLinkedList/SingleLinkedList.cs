@@ -103,16 +103,12 @@ namespace LinkedList
             return null;
         }
 
-        public Node? GetLast()
+        public Node GetLast()
         {
-            for(Node cur = head; cur.next != null; cur = cur.next)
-            {
-                if(cur.next == null)
-                {
-                    return cur;
-                }
-            }
-            return null;
+            var currentNode = head;
+            while (currentNode.next != null) currentNode = currentNode.next;
+
+            return currentNode;
         }
 
         public void DeleteFirst()

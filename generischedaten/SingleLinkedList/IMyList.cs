@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace LinkedList
 {
@@ -12,6 +14,8 @@ namespace LinkedList
         void SwitchNodes(Node firstNode, Node secondNode);
         void SetSortStrategy(SortStrategy sortStrategy);
         Node GetFirst();
+
+        Node GetLast();
         void Sort();
         void SortDesc();
     }
@@ -46,6 +50,66 @@ namespace LinkedList
         public override void SortDesc(IMyList list)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public class Quicksort : SortStrategy
+    {
+        public override void Sort(IMyList list)
+        {
+            sort(list.GetFirst(), list.GetLast());
+        }
+
+        public override void SortDesc(IMyList list)
+        {
+            throw new NotImplementedException();
+        }
+
+        Node paritionLast(Node start, Node end)
+        {
+            if (start == end || start == null || end == null)
+                return start;
+
+            Node pivot_prev = start;
+            Node curr = start;
+            int pivot = end.data;
+            int temp;
+
+            while (start != end)
+            {
+                if (start.data < pivot)
+                {
+                    pivot_prev = curr;
+                    temp = curr.data;
+                    curr.data = start.data;
+                    start.data = temp;
+                    curr = curr.next;
+                }
+                start = start.next;
+            }
+
+
+            temp = curr.data;
+            curr.data = pivot;
+            end.data = temp;
+
+            return pivot_prev;
+        }
+
+        void sort(Node start, Node end)
+        {
+            if (start == null || start == end || start == end.next)
+                return;
+
+            Node pivot_prev = paritionLast(start, end);
+            sort(start, pivot_prev);
+
+            if (pivot_prev != null && pivot_prev == start)
+                sort(pivot_prev.next, end);
+
+            else if (pivot_prev != null
+                     && pivot_prev.next != null)
+                sort(pivot_prev.next.next, end);
         }
     }
 
