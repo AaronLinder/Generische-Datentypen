@@ -28,5 +28,35 @@ namespace MyStackTests
             stack.Pop();
             Assert.AreEqual(stack.ToString(), "| 1 | 2 |");
         }
+
+        [Test]
+        public void StringAndStringreversed_StringsMirrowed_0()
+        {
+            MyStack.MyStacks stack = new MyStack.MyStacks();
+            string a = "abcd";
+            string b = "dcba";
+            int ret = stack.MirroredString(a, b);
+            Assert.AreEqual(0, ret);
+        }
+
+        [Test]
+        public void StringAndStringreversedDiverntLength_StringsMirrowed_4()
+        {
+            MyStack.MyStacks stack = new MyStack.MyStacks();
+            string a = "abcde";
+            string b = "dcba";
+            int ret = stack.MirroredString(a, b);
+            Assert.AreEqual(0, ret);
+        }
+
+        [Test]
+        public void StringAndTheSameString_StringsMirrowed_1()
+        {
+            MyStack.MyStacks stack = new MyStack.MyStacks();
+            string a = "abcde";
+            string b = "dcba";
+            int ret = stack.MirroredString(a, b);
+            Assert.AreEqual(0, ret);
+        }
     }
 }
