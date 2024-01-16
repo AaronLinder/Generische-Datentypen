@@ -49,5 +49,14 @@ namespace MyStackTests
             Assert.AreEqual(0, ret);
         }
 
+        [Test]
+        public void StringAndTheSameString_StringsMirrowed_1()
+        {
+            MyStack.MyStacks stack = new MyStack.MyStacks();
+            string a = "abcde";
+            string b = "dcba";
+            int ret = stack.MirroredString(a, b);
+            Assert.AreEqual(0, ret);
+        }
     }
 }
